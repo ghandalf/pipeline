@@ -15,43 +15,43 @@ services:
 #      - gitlab-data:/var/opt/gitlab:rw
 #     networks: ['pipeline.ghandalf.ca']
 
-#   nexus:
-#     container_name: nexus
-#     image: pipe/nexus:${CONTAINERS_VERSION}
-#     hostname: nexus.ghandalf.ca
-#     user: nexus
-#     ports: ['32280:32280']
-#     restart: always
-#     volumes:
-#       - nexus-data:/usr/share/nexus/data:rw
-#     networks: ['pipeline.ghandalf.ca']
+  nexus:
+    container_name: nexus
+    image: pipe/nexus:${CONTAINERS_VERSION}
+    hostname: nexus.ghandalf.ca
+    user: nexus
+    ports: ['32280:32280']
+    restart: always
+    volumes:
+      - nexus-data:/usr/share/nexus/data:rw
+    networks: ['pipeline.ghandalf.ca']
 
-#   jenkins:
-#     container_name: jenkins
-#     image: pipe/jenkins:${CONTAINERS_VERSION}
-#     hostname: jenkins.ghandalf.ca
-#     user: jenkins
-#     ports: ['32380:32380']
-#     restart: always
-#     volumes:
-#       - /var/run/docker.sock:/var/run/docker.sock
-#       - jenkins-data:/usr/share/jenkins/data:rw
-# #     depends_on: ['gitlab', 'nexus']
-#     networks: ['pipeline.ghandalf.ca']
-
-  # see: https://github.com/docker-library/docs/tree/master/sonarqube
-  sonarqube:
-    container_name: sonarqube
-    image: pipe/sonarqube:${CONTAINERS_VERSION}
-    hostname: sonarqube.ghandalf.ca
-    user: sonarqube
-    ports: ['32680:9000']
-    # restart: always
+  jenkins:
+    container_name: jenkins
+    image: pipe/jenkins:${CONTAINERS_VERSION}
+    hostname: jenkins.ghandalf.ca
+    user: jenkins
+    ports: ['32380:32380']
+    restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - sonarqube-data:/usr/share/sonarqube/data:rw
-    #depends_on: ['gitlab', 'nexus', 'jenkins']
+      - jenkins-data:/usr/share/jenkins/data:rw
+#     depends_on: ['gitlab', 'nexus']
     networks: ['pipeline.ghandalf.ca']
+
+  # see: https://github.com/docker-library/docs/tree/master/sonarqube
+  # sonarqube:
+  #   container_name: sonarqube
+  #   image: pipe/sonarqube:${CONTAINERS_VERSION}
+  #   hostname: sonarqube.ghandalf.ca
+  #   user: sonarqube
+  #   ports: ['32680:9000']
+  #   # restart: always
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - sonarqube-data:/usr/share/sonarqube/data:rw
+  #   #depends_on: ['gitlab', 'nexus', 'jenkins']
+  #   networks: ['pipeline.ghandalf.ca']
 
   # see: https://github.com/docker-library/postgres
   # postgresql:
