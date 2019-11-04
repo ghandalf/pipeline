@@ -1,0 +1,86 @@
+version: '3.7'
+
+services:
+
+#   gitlab:
+#     container_name: gitlab
+#     image: gitlab/gitlab-ce
+#     hostname: gitlab.ghandalf.ca
+#     ports: ['32180:32180', '32122:22', '32143:443']
+#     restart: always
+#     volumes:
+#      - ./config/gitlab/system/etc/gitlab/gitlab.rb:/etc/gitlab/gitlab.rb
+#      - gitlab-conf:/etc/gitlab:rw
+#      - gitlab-logs:/var/log/gitlab:rw
+#      - gitlab-data:/var/opt/gitlab:rw
+#     networks: ['pipeline.ghandalf.ca']
+
+#   nexus:
+#     container_name: nexus
+#     image: pipe/nexus:${CONTAINERS_VERSION}
+#     hostname: nexus.ghandalf.ca
+#     user: nexus
+#     ports: ['32280:32280']
+#     restart: always
+#     volumes:
+#       - nexus-data:/usr/share/nexus/data:rw
+#     networks: ['pipeline.ghandalf.ca']
+
+#   jenkins:
+#     container_name: jenkins
+#     image: pipe/jenkins:${CONTAINERS_VERSION}
+#     hostname: jenkins.ghandalf.ca
+#     user: jenkins
+#     ports: ['32380:32380']
+#     restart: always
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock
+#       - jenkins-data:/usr/share/jenkins/data:rw
+# #     depends_on: ['gitlab', 'nexus']
+#     networks: ['pipeline.ghandalf.ca']
+
+  # see: https://github.com/docker-library/docs/tree/master/sonarqube
+  sonarqube:
+    container_name: sonarqube
+    image: pipe/sonarqube:${CONTAINERS_VERSION}
+    hostname: sonarqube.ghandalf.ca
+    user: sonarqube
+    ports: ['32680:9000']
+    # restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - sonarqube-data:/usr/share/sonarqube/data:rw
+    #depends_on: ['gitlab', 'nexus', 'jenkins']
+    networks: ['pipeline.ghandalf.ca']
+
+  # see: https://github.com/docker-library/postgres
+  # postgresql:
+  #   container_name: postgresql
+  #   image: postgres:latest
+  #   hostname: postgresql.ghandalf.ca
+  #   user: postgres
+  #   ports: ['5432:5432']
+  #   restart: always
+  #   volumes:
+  #     - postgresql-data:/usr/share/postgresql/data:rw
+     #depends_on: ['gitlab', 'nexus', 'jenkins']
+  #   networks: ['pipeline.ghandalf.ca']
+
+
+networks: { pipeline.ghandalf.ca:{} }
+
+volumes:
+  nexus-data:
+    driver: local
+  jenkins-data:
+    driver: local
+  gitlab-conf:
+    driver: local
+  gitlab-logs:
+    driver: local
+  gitlab-data:
+    driver: local
+  sonarqube-data:
+    driver: local
+  postgresql-data:
+    driver: local
