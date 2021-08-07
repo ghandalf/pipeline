@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3
 
 LABEL Author="Francis Ouellet <Ouellet.Francis@gmail.com>"
 LABEL Description="Base on Alpine"
